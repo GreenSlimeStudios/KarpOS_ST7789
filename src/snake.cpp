@@ -14,14 +14,14 @@ Berry::Berry(int x, int y){
   is_alive=true;
 }
 void Berry::render(Adafruit_ST7789 *display){
-  display->drawRoundRect(display->width()/2 + x*4, display->height()/2 + y*4, 4, 4, 2, ST77XX_WHITE);
+  display->fillRoundRect(display->width()/2 + x*6, display->height()/2 + y*6, 6, 6, 2, ST77XX_RED);
 }
 
 void render_part(int x, int y,Adafruit_ST7789 *display){
-  display->fillRoundRect(display->width()/2 + x*4, display->height()/2 + y*4, 4, 4, 2, ST77XX_WHITE);
+  display->fillRoundRect(display->width()/2 + x*6, display->height()/2 + y*6, 6, 6, 2, ST77XX_WHITE);
 }
 void de_render_part(int x, int y, Adafruit_ST7789 *display){
-  display->fillRoundRect(display->width()/2 + x*4, display->height()/2 + y*4, 4, 4, 2, ST77XX_BLACK);
+  display->fillRoundRect(display->width()/2 + x*6, display->height()/2 + y*6, 6, 6, 2, ST77XX_BLACK);
 }
 
 void Snake::render_snake(Adafruit_ST7789 *display){
@@ -32,10 +32,10 @@ void Snake::render_snake(Adafruit_ST7789 *display){
   // display->display();
 }
 void Snake::wrap_if_needed(){
-  if (parts[0].x > 240/8 - 1) parts[0].x = -240/8;
-  if (parts[0].x < -240/8) parts[0].x = 240/8;
-  if (parts[0].y > 240/8 - 1) parts[0].y = -240/8;
-  if (parts[0].y < -240/8) parts[0].y = 240/8;
+  if (parts[0].x > 240/12 - 1) parts[0].x = -240/12;
+  if (parts[0].x < -240/12) parts[0].x = 240/12;
+  if (parts[0].y > 240/12 - 1) parts[0].y = -240/12;
+  if (parts[0].y < -240/12) parts[0].y = 240/12;
 }
 
 void Snake::check_collision(){
@@ -130,7 +130,7 @@ void handle_berry(Adafruit_ST7789 *display,Berry* berry, Snake* snake){
     }
   }
   if ((*berry).is_alive == false){
-    de_render_part((*berry).x,(*berry).y,display);
+    // de_render_part((*berry).x,(*berry).y,display);
     (*snake).parts.push_back((*snake).parts[(*snake).parts.size()-1]);
     (*berry).x = random(-120/8,120/8); 
     (*berry).y = random(-120/8,120/8);

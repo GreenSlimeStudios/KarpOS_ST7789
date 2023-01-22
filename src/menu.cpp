@@ -80,6 +80,7 @@ void Menu::manage_state(){
     }
 }
 void Menu::handle_menu(){
+   display->fillScreen(ST77XX_BLACK);
     draw_menu();
     for (;;){
         // if (manage_input() == MenuActions::MODIFY){
@@ -98,7 +99,6 @@ void Menu::handle_menu(){
     }
 }
 void Menu::draw_menu(){
-   display->fillScreen(ST77XX_BLACK);
    display->setCursor(0,0);
 
    for (uint8_t i=0;i<5;i++){
@@ -106,7 +106,7 @@ void Menu::draw_menu(){
             display->setTextColor(ST77XX_BLACK,ST77XX_WHITE);
         }
         else{
-            display->setTextColor(ST77XX_WHITE);
+            display->setTextColor(ST77XX_WHITE,ST77XX_BLACK);
         }
         String name;
         switch (i){

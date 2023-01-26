@@ -14,7 +14,6 @@
 // The pins for I2C are defined by the Wire-library. 
 
 Adafruit_ST7789 display = Adafruit_ST7789(TFT_CS, TFT_DC, TFT_RST);
-
 SnakeGame snake_game = SnakeGame();
 SystemInfo system_info = SystemInfo();
 StateManager state_manager = StateManager();
@@ -28,29 +27,18 @@ void setup() {
   display.setRotation(2);
   display.fillScreen(ST77XX_BLACK);
 
-  // display.drawPixel(140,140,ST77XX_RED);
-  // display.drawPixel(140,141,ST77XX_BLUE);
-  // for(;;){}
-
   pinMode(pUP,INPUT_PULLUP);
   pinMode(pDOWN,INPUT_PULLUP);
   pinMode(pLEFT,INPUT_PULLUP);
   pinMode(pRIGHT,INPUT_PULLUP);
   pinMode(pMENU,INPUT_PULLUP);
   pinMode(pINTER,INPUT_PULLUP);
-
-  // SSD1306_SWITCHCAPVCC = generate display voltage from 3.3V internally
-  // if(!display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS)) {
-  //   Serial.println(F("SSD1306 allocation failed"));
-  //   for(;;); // Don't proceed, loop forever
-  // }
-  // display.clearDisplay();
 }
 
 void loop(){
   // display.clearDisplay();
   state_manager.check_for_state_change();
-  Serial.println(state_manager.state);
+  
   if (state_manager.state == State::MENU){
     menu.handle_menu();
   }
@@ -62,5 +50,4 @@ void loop(){
     display.fillScreen(ST77XX_BLACK);
     // display.display();
   }
-  // delay(2000);
 }

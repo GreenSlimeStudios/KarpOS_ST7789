@@ -19,6 +19,7 @@ struct Menu{
     StateManager *state_manager;
     Adafruit_ST7789 *display;
     int index = 0;
+    int index_prev = 0;
     Menu(StateManager *sm, Adafruit_ST7789 *d);
     MenuActions manage_input();
     void manage_state();

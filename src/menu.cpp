@@ -51,6 +51,7 @@ MenuActions Menu::manage_input(){
         up=false;
         down=false;
         if (index > 0) {
+            index_prev = index;
             index--;
             return MenuActions::MODIFY;
         };
@@ -59,6 +60,7 @@ MenuActions Menu::manage_input(){
         up=false;
         down=false;
         if (index < 4) {
+            index_prev = index;
             index++;
             return MenuActions::MODIFY;
         }
@@ -99,11 +101,16 @@ void Menu::handle_menu(){
     }
 }
 void Menu::draw_menu(){
-   display->setCursor(0,0);
+    display->setCursor(10,10);
+    display->setTextSize(2);
+    display->fillRect(0,10 + index * 16 + index * 5,20,16 + 10 + index * 16 + index * 5,ST77XX_BLACK);
+    display->fillRect(0,0,10,240,ST77XX_BLACK);
 
-   for (uint8_t i=0;i<5;i++){
+    for (uint8_t i=0;i<5;i++){
         if (index==i){
-            display->setTextColor(ST77XX_BLACK,ST77XX_WHITE);
+            display->setTextColor(ST77XX_WHITE,ST77XX_MAGENTA);
+            display->setCursor(20, display->getCursorY());
+            display->fillCircle(10,display->getCursorY() + 8,4,ST77XX_MAGENTA);
         }
         else{
             display->setTextColor(ST77XX_WHITE,ST77XX_BLACK);
@@ -120,7 +127,14 @@ void Menu::draw_menu(){
             name = "null";
             break;
         };
-        display->println(name);
-   }
+        display->print(name);
+        if (index != i){
+            display->println(" ");
+        }
+        else{
+            display->println();
+        }
+        display->setCursor(10, display->getCursorY() + 5);
+    }
 //    display->display();
 }

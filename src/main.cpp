@@ -12,9 +12,6 @@
 
 // Declaration for an SSD1306 display connected to I2C (SDA, SCL pins)
 // The pins for I2C are defined by the Wire-library. 
-#define TFT_CS        5
-#define TFT_RST       17 // Or set to -1 and connect to Arduino RESET pin
-#define TFT_DC        16
 
 Adafruit_ST7789 display = Adafruit_ST7789(TFT_CS, TFT_DC, TFT_RST);
 
@@ -25,8 +22,10 @@ Menu menu = Menu(&state_manager, &display);
 
 void setup() {
   Serial.begin(921600);
-  
+
+
   display.init(240, 240);           // Init ST7789 240x240
+  display.setRotation(2);
   display.fillScreen(ST77XX_BLACK);
 
   // display.drawPixel(140,140,ST77XX_RED);

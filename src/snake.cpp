@@ -131,7 +131,9 @@ void handle_berry(Adafruit_ST7789 *display,Berry* berry, Snake* snake){
   }
   if ((*berry).is_alive == false){
     // de_render_part((*berry).x,(*berry).y,display);
-    (*snake).parts.push_back((*snake).parts[(*snake).parts.size()-1]);
+    for (int i=0;i<2;++i){
+      (*snake).parts.push_back((*snake).parts[(*snake).parts.size()-1]);
+    }
     (*berry).x = random(-120/8,120/8); 
     (*berry).y = random(-120/8,120/8);
     (*berry).is_alive=true;

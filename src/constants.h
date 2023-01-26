@@ -1,6 +1,11 @@
 #ifndef CONSTANTS_H
 #define CONSTANTS_H
 
+#define SD_CS    21
+#define TFT_CS   4
+#define TFT_RST  17
+#define TFT_DC   16
+
 #define SCREEN_WIDTH 240 // OLED display width, in pixels
 #define SCREEN_HEIGHT 240 // OLED display height, in pixels
 

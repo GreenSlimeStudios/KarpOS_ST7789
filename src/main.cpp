@@ -8,6 +8,9 @@
 #include "constants.h"
 #include "states.h"
 #include "menu.h"
+#include "sd.h"
+#include "config.h"
+#include "SD.h"
 #include <Adafruit_ST7789.h>
 
 // Declaration for an SSD1306 display connected to I2C (SDA, SCL pins)
@@ -18,14 +21,24 @@ SnakeGame snake_game = SnakeGame();
 SystemInfo system_info = SystemInfo();
 StateManager state_manager = StateManager();
 Menu menu = Menu(&state_manager, &display);
+MSD sd = MSD();
+Config config = Config(&sd);
 
 void setup() {
   Serial.begin(921600);
 
-
   display.init(240, 240);           // Init ST7789 240x240
   display.setRotation(2);
   display.fillScreen(ST77XX_BLACK);
+
+  if (!sd.init(SD,SD_CS)){
+    display.println("SD CARD ERROR");
+    delay(3000);
+    for(;;){}
+  }
+  // sd.readFile(SD,"/test.txt");
+  // config.saveToSD(SD);
+  sd.readFile(SD,"/config/config.txt");
 
   pinMode(pUP,INPUT_PULLUP);
   pinMode(pDOWN,INPUT_PULLUP);

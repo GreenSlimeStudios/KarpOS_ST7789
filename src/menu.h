@@ -9,13 +9,15 @@
 #ifndef MENU_H
 #define MENU_H
 
-enum MenuActions{
+enum MenuActions
+{
     NOTHIN,
     MODIFY,
     ACCEPT,
 };
 
-struct Menu{
+struct Menu
+{
     StateManager *state_manager;
     Adafruit_ST7789 *display;
     int index = 0;
@@ -26,6 +28,5 @@ struct Menu{
     void handle_menu();
     void draw_menu();
 };
-
 
 #endif

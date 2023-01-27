@@ -9,13 +9,15 @@
 #ifndef SNAKE_H
 #define SNAKE_H
 
-enum Direction{
+enum Direction
+{
   UP,
   DOWN,
   LEFT,
   RIGHT,
 };
-struct Part{
+struct Part
+{
   int x;
   int y;
 };
@@ -27,9 +29,10 @@ struct Part{
 //   display.fillRoundRect(display.width()/2 + x*4, display.height()/2 + y*4, 4, 4, 2, SSD1306_BLACK);
 // }
 
-struct Snake{
-  Direction dir = Direction::RIGHT; 
-  std::vector<Part> parts = {Part{x:0,y:0},Part{x:0,y:0},Part{x:0,y:0}};
+struct Snake
+{
+  Direction dir = Direction::RIGHT;
+  std::vector<Part> parts = {Part{x : 0, y : 0}, Part{x : 0, y : 0}, Part{x : 0, y : 0}};
   bool is_alive = true;
 
   void render_snake(Adafruit_ST7789 *display);
@@ -41,11 +44,12 @@ struct Snake{
   void animate_death(Adafruit_ST7789 *display);
 };
 
-struct Berry{
+struct Berry
+{
   int x;
   int y;
   bool is_alive;
-   Berry(int x, int y);
+  Berry(int x, int y);
   void render(Adafruit_ST7789 *display);
 };
 
@@ -55,14 +59,15 @@ struct Berry{
 //   random(-32/8,32/8)
 // );
 
-struct SnakeGame{
-    Snake snake = Snake();
-    Berry berry = Berry(
-      random(-64/8,64/8),
-      random(-32/8,32/8)
-    );
+struct SnakeGame
+{
+  Snake snake = Snake();
+  Berry berry = Berry(
+      random(-64 / 8, 64 / 8),
+      random(-32 / 8, 32 / 8));
 
-    public: void handle_snake_game(Adafruit_ST7789 *display);
-}; 
+public:
+  void handle_snake_game(Adafruit_ST7789 *display);
+};
 
 #endif

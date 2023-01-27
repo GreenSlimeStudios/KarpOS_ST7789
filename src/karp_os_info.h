@@ -10,13 +10,14 @@
 #ifndef KARP_OS_INFO
 #define KARP_OS_INFO
 
-struct SystemInfo{
+struct SystemInfo
+{
     String os_name = "KarpOS";
     String version = "0.2.1";
     String release_date = "21.01.2023";
 
-    void handle_show_info(Adafruit_ST7789 *display,StateManager *state_manager);
-    void draw_system_text(Adafruit_ST7789 *display,int offset);
+    void handle_show_info(Adafruit_ST7789 *display, StateManager *state_manager);
+    void draw_system_text(Adafruit_ST7789 *display, int offset);
 };
 
 #endif

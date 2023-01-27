@@ -15,7 +15,8 @@ uint8_t down_last_state = 0;
 bool up = false;
 bool down = false;
 
-Menu::Menu(StateManager *sm, Adafruit_ST7789 *d){
+Menu::Menu(StateManager *sm, Adafruit_ST7789 *d)
+{
     state_manager = sm;
     display = d;
 }
@@ -30,36 +31,48 @@ bool is_down = false;
 //     return false;
 // }
 
-MenuActions Menu::manage_input(){
-    if (!digitalRead(pINTER)) {return MenuActions::ACCEPT;}
+MenuActions Menu::manage_input()
+{
+    if (!digitalRead(pINTER))
+    {
+        return MenuActions::ACCEPT;
+    }
     up_state = digitalRead(pUP);
-    if (up_state != up_last_state){
-        if (up_state == LOW){
+    if (up_state != up_last_state)
+    {
+        if (up_state == LOW)
+        {
             up = true;
         }
         up_last_state = up_state;
     }
     down_state = digitalRead(pDOWN);
-    if (down_state != down_last_state){
-        if (down_state == LOW){
+    if (down_state != down_last_state)
+    {
+        if (down_state == LOW)
+        {
             down = true;
         }
         down_last_state = down_state;
     }
     delay(10);
-    if (up) {
-        up=false;
-        down=false;
-        if (index > 0) {
+    if (up)
+    {
+        up = false;
+        down = false;
+        if (index > 0)
+        {
             index_prev = index;
             index--;
             return MenuActions::MODIFY;
         };
     };
-    if (down) {
-        up=false;
-        down=false;
-        if (index < 4) {
+    if (down)
+    {
+        up = false;
+        down = false;
+        if (index < 4)
+        {
             index_prev = index;
             index++;
             return MenuActions::MODIFY;
@@ -67,7 +80,8 @@ MenuActions Menu::manage_input(){
     };
     return MenuActions::NOTHIN;
 }
-void Menu::manage_state(){
+void Menu::manage_state()
+{
     switch (index)
     {
     case 0:
@@ -76,47 +90,56 @@ void Menu::manage_state(){
     case 1:
         (*state_manager).state = State::SYSTEM_INFO;
         break;
-    
+
     default:
         break;
     }
 }
-void Menu::handle_menu(){
-   display->fillScreen(ST77XX_BLACK);
+void Menu::handle_menu()
+{
+    display->fillScreen(ST77XX_BLACK);
     draw_menu();
-    for (;;){
+    for (;;)
+    {
         // if (manage_input() == MenuActions::MODIFY){
         //     Serial.print("MODIFICATION: "); Serial.println(index);
         // }
         MenuActions result = manage_input();
-        if (result == MenuActions::ACCEPT){
+        if (result == MenuActions::ACCEPT)
+        {
             manage_state();
             display->fillScreen(ST77XX_BLACK);
             // display->display();
             return;
         }
-        if (result == MenuActions::MODIFY){
+        if (result == MenuActions::MODIFY)
+        {
             draw_menu();
         }
     }
 }
-void Menu::draw_menu(){
-    display->setCursor(10,10);
+void Menu::draw_menu()
+{
+    display->setCursor(10, 10);
     display->setTextSize(2);
-    display->fillRect(0,10 + index * 16 + index * 5,20,16 + 10 + index * 16 + index * 5,ST77XX_BLACK);
-    display->fillRect(0,0,10,240,ST77XX_BLACK);
+    display->fillRect(0, 10 + index * 16 + index * 5, 20, 16 + 10 + index * 16 + index * 5, ST77XX_BLACK);
+    display->fillRect(0, 0, 10, 240, ST77XX_BLACK);
 
-    for (uint8_t i=0;i<5;i++){
-        if (index==i){
-            display->setTextColor(ST77XX_WHITE,ST77XX_MAGENTA);
+    for (uint8_t i = 0; i < 5; i++)
+    {
+        if (index == i)
+        {
+            display->setTextColor(ST77XX_WHITE, ST77XX_MAGENTA);
             display->setCursor(20, display->getCursorY());
-            display->fillCircle(10,display->getCursorY() + 8,4,ST77XX_MAGENTA);
+            display->fillCircle(10, display->getCursorY() + 8, 4, ST77XX_MAGENTA);
         }
-        else{
-            display->setTextColor(ST77XX_WHITE,ST77XX_BLACK);
+        else
+        {
+            display->setTextColor(ST77XX_WHITE, ST77XX_BLACK);
         }
         String name;
-        switch (i){
+        switch (i)
+        {
         case 0:
             name = "snake";
             break;
@@ -128,13 +151,15 @@ void Menu::draw_menu(){
             break;
         };
         display->print(name);
-        if (index != i){
+        if (index != i)
+        {
             display->println(" ");
         }
-        else{
+        else
+        {
             display->println();
         }
         display->setCursor(10, display->getCursorY() + 5);
     }
-//    display->display();
+    //    display->display();
 }

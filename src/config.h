@@ -11,7 +11,7 @@ struct Config
     int orientation = 2;
 
     Config(MSD *newsd);
-    void loadFromSD();
+    void loadFromSD(fs::FS &fs);
     void saveToSD(fs::FS &fs);
 };
 

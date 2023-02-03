@@ -71,7 +71,7 @@ MenuActions Menu::manage_input()
     {
         up = false;
         down = false;
-        if (index < 4)
+        if (index < 9)
         {
             index_prev = index;
             index++;
@@ -122,10 +122,10 @@ void Menu::draw_menu()
 {
     display->setCursor(10, 10);
     display->setTextSize(2);
-    display->fillRect(0, 10 + index * 16 + index * 5, 20, 16 + 10 + index * 16 + index * 5, ST77XX_BLACK);
+    display->fillRect(0, 10 + index * 16 + index * 5, 20, 16, ST77XX_BLACK);
     display->fillRect(0, 0, 10, 240, ST77XX_BLACK);
 
-    for (uint8_t i = 0; i < 5; i++)
+    for (uint8_t i = 0; i < 10; i++)
     {
         if (index == i)
         {

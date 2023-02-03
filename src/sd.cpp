@@ -3,9 +3,9 @@
 #include "SD.h"
 #include "SPI.h"
 
-bool MSD::init(fs::SDFS &SD, uint8_t cs)
+bool MSD::init(fs::SDFS &SDD, uint8_t cs)
 {
-  if (!SD.begin(cs))
+  if (!SDD.begin(cs))
   {
     Serial.println("Card Mount Failed");
     return false;

@@ -192,7 +192,9 @@ void SnakeGame::handle_snake_game(Adafruit_ST7789 *display)
     if (snake.is_alive == false)
       end_game(display, &snake);
     handle_berry(display, &berry, &snake);
-    delay(100);
+    delay(50);
+    snake.check_input();
+    delay(50);
   }
   else
   {

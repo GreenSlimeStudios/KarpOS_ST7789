@@ -32,16 +32,18 @@ void setup()
   display.setRotation(2);
   display.fillScreen(ST77XX_BLACK);
 
-  if (!sd.init(SD, SD_CS))
+  while (!sd.init(SD, SD_CS))
   {
     display.println("SD CARD ERROR");
-    delay(3000);
-    for (;;)
-    {
-    }
+    delay(1000);
+    // for (;;)
+    // {
+    // }
   }
-  // sd.readFile(SD,"/test.txt");
+  // sd.readFile(SD, "/test.txt");
+  // sd.createDir(SD, "/config");
   // config.saveToSD(SD);
+  config.loadFromSD(SD);
   sd.readFile(SD, "/config/config.txt");
 
   pinMode(pUP, INPUT_PULLUP);
@@ -50,10 +52,15 @@ void setup()
   pinMode(pRIGHT, INPUT_PULLUP);
   pinMode(pMENU, INPUT_PULLUP);
   pinMode(pINTER, INPUT_PULLUP);
+  pinMode(pB, INPUT_PULLUP);
+  pinMode(pY, INPUT_PULLUP);
+  pinMode(pX, INPUT_PULLUP);
+  pinMode(pPOT, INPUT);
 }
 
 void loop()
 {
+  Serial.println(analogRead(pPOT));
   // display.clearDisplay();
   state_manager.check_for_state_change();
 

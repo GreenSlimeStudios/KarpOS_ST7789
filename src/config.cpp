@@ -17,3 +17,21 @@ void Config::saveToSD(fs::FS &fs)
    msg += std::to_string(orientation);
    sd->appendFile(fs, "/config/config.txt", msg.c_str());
 }
+void Config::loadFromSD(fs::FS &fs)
+{
+   Serial.println("Reading config file: /config/config.txt");
+
+   File file = fs.open("/config/config.txt");
+   if (!file)
+   {
+      Serial.println("Failed to open file for reading");
+      return;
+   }
+   Serial.println();
+   // Serial.print("Read from file: ");
+   while (file.available())
+   {
+      Serial.print(file.read());
+   }
+   file.close();
+}

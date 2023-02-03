@@ -7,7 +7,7 @@
 
 struct MSD
 {
-    bool init(fs::SDFS &SD, uint8_t cs);
+    bool init(fs::SDFS &SDD, uint8_t cs);
     void createDir(fs::FS &fs, const char *path);
     void removeDir(fs::FS &fs, const char *path);
     void readFile(fs::FS &fs, const char *path);
